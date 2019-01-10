@@ -75,7 +75,7 @@ class KubernetesNamedAccountCredentialsInitializer implements CredentialsInitial
                                          kubernetesConfigurationProperties.accounts)
 
     // TODO(lwander): Modify accounts when their dockerRegistries attribute is updated as well -- need to ask @duftler.
-    accountsToAdd.each { KubernetesConfigurationProperties.ManagedAccount managedAccount ->
+    accountsToAdd.parallelStream().each { KubernetesConfigurationProperties.ManagedAccount managedAccount ->
       try {
         def kubernetesAccount = new KubernetesNamedAccountCredentials.Builder()
           .accountCredentialsRepository(accountCredentialsRepository)
